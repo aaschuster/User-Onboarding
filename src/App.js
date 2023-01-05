@@ -4,6 +4,7 @@ import * as yup from "yup";
 import './App.css';
 import Form from "./Form";
 import Errs from "./Errs"
+import Users from "./Users"
 import schema from "./schema"
 
 const initFormVals = {
@@ -86,6 +87,7 @@ function App() {
     <div className="App">
       <Form formVals={formVals} onChange={onChange} onSubmit={onSubmit} />    
       {showErrs && <Errs formErrs={formErrs}/>}
+      <Users users={users}/>
     </div>
   );
 }
