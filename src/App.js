@@ -21,14 +21,12 @@ const initFormErrs = {
   terms: ""
 }
 
-let showErrs = false;
-
 function App() {
 
   const [ users, setUsers ] = useState([]);
   const [ formVals, setFormVals ] = useState(initFormVals);
   const [ formErrs, setFormErrs ] = useState(initFormErrs);
-  const [ showErrs, setShowErrs ] = useState(true);
+  const [ disabled, setDisabled ] = useState(true);
 
   const onChange = (evt) => {
 
@@ -42,17 +40,6 @@ function App() {
 
   const onSubmit = (evt) => {
       evt.preventDefault();
-      let noErrs = true;
-      for(const err in formErrs) {
-        if(formErrs[err]!="") noErrs=false;
-      }
-      if (noErrs) {
-        setFormVals(initFormVals);
-        setFormErrs(initFormErrs);
-        setShowErrs(false);
-      } else {
-        setShowErrs(true);
-      }
 
       const newUser = {
         id: users.length+1,
@@ -81,12 +68,15 @@ function App() {
       .catch(err => console.error(err));
   }, [])
 
+  useEffect(() => {
+    schema.isValid(formVals).then(valid => setDisabled(!valid));
+  }, [formVals])
   
 
   return (
     <div className="App">
-      <Form formVals={formVals} onChange={onChange} onSubmit={onSubmit} />    
-      {showErrs && <Errs formErrs={formErrs}/>}
+      <Form formVals={formVals} onChange={onChange} onSubmit={onSubmit} disabled={disabled} />    
+      <Errs formErrs={formErrs}/>
       <Users users={users}/>
     </div>
   );

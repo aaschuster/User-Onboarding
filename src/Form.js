@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Form( { formVals, onChange, onSubmit } ) {
+export default function Form( { formVals, onChange, onSubmit, disabled } ) {
     return (
         <div>
         <form onSubmit={onSubmit}>
@@ -44,7 +44,7 @@ export default function Form( { formVals, onChange, onSubmit } ) {
                 />
             </label>
 
-            <button>Submit</button>
+            <button disabled={disabled}>Submit</button>
         </form>
         </div>
 
