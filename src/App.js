@@ -41,6 +41,8 @@ function App() {
   const onSubmit = (evt) => {
       evt.preventDefault();
 
+      setFormVals(initFormVals);
+      setFormErrs(initFormErrs);
       const newUser = {
         id: users.length+1,
         email: formVals.email,
